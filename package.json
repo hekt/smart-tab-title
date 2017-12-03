@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "webpack --watch",
+    "build": "webpack",
     "test": "ava --verbose --experimental-modules"
   },
   "devDependencies": {
