@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Smart Tab Title",
-  "version": "1.0",
+  "version": "0.0.1",
 
   "description": "Shorten tab titles",
   "homepage_url": "https://github.com/hekt/smart-tab-title",
@@ -13,13 +13,13 @@
   "permissions": ["tabs"],
 
   "background": {
-    "scripts": ["src/TabTitles.js", "src/background.js"]
+    "scripts": ["dist/background.js"]
   },
 
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/content.js"]
+      "js": ["dist/content.js"]
     }
   ]
 

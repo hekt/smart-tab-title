@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "test": "ava --verbose"
+    "start": "webpack --watch",
+    "test": "ava --verbose --experimental-modules"
   },
   "devDependencies": {
-    "ava": "^0.24.0"
+    "ava": "^0.24.0",
+    "webpack": "^3.9.1"
   }
 }

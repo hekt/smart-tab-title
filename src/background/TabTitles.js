@@ -1,4 +1,4 @@
-class TabTitles {
+module.exports = class TabTitles {
   constructor(delimiters) {
     this.delimiters = delimiters.map(d => {
       return new RegExp('(' + d + ')');
@@ -23,6 +23,17 @@ class TabTitles {
     this.tabTitles[tabId] = title;
     this.splittedTitles[tabId] = this.split(title);
 
+    return this.refresh();
+  }
+
+  remove(tabId) {
+    delete this.tabTitles[tabId];
+    delete this.splittedTitles[tabId];
+
+    return this.refresh();
+  }
+
+  refresh() {
     let updatedIds = [];
 
     for (const tabId of Object.keys(this.splittedTitles)) {
@@ -66,6 +77,4 @@ class TabTitles {
     }
     return words;
   }
-}
-
-exports.TabTitles = TabTitles;
+};

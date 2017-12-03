@@ -1,3 +1,13 @@
+function send(title) {
+  browser.runtime.sendMessage({
+    title: title
+  }).then(() => {
+    console.log("message successfuly sended");
+  }).catch(e => {
+    console.error(e);
+  });
+}
+
 const observeTarget = document.querySelector("title");
 const observeOptions = {
   characterData: true,
@@ -12,13 +22,7 @@ const observer = new MutationObserver((mutations) => {
     console.log("content: mutation value:");
     console.log(mutation.target.innerText);
 
-    browser.runtime.sendMessage({
-      title: mutation.target.innerText,
-    }).then(() => {
-      console.log("message successfuly sended");
-    }).catch((e) => {
-      console.error(e);
-    });
+    send(mutation.target.innerText);
   }
 });
 
@@ -34,3 +38,5 @@ browser.runtime.onMessage.addListener((message) => {
 });
 
 observer.observe(observeTarget, observeOptions);
+
+send(document.title);
