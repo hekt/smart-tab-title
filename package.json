@@ -2,7 +2,7 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
-    "test": "ava --verbose --experimental-modules"
+    "test": "ava --verbose"
   },
   "devDependencies": {
     "ava": "^0.24.0",
