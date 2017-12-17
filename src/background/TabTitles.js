@@ -11,8 +11,8 @@ module.exports = class TabTitles {
     this.splittedTitles = {};
   }
 
-  ping() {
-    return 'pong';
+  count() {
+    return Object.keys(this.tabTitles).length;
   }
 
   title(tabId) {
