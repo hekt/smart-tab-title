@@ -1,28 +1,55 @@
+import MessageType from '../MessageType';
 import TabTitles from './TabTitles';
 
-const tabTitles = new TabTitles([' ', '】', '」']);
+const delimiters = [' ', '】', '」'];
 
-const notice = (updated) => {
-  updated.forEach(id => {
-    browser.tabs.sendMessage(
-      parseInt(id),
-      {title: tabTitles.title(id)}
-    );
+let windows = {};
+
+const getTabTitles = (windowId) => {
+  return windows[windowId] || (windows[windowId] = new TabTitles(delimiters));
+};
+
+const notice = (windowId, updated) => {
+  updated.forEach(tabId => {
+    browser.tabs.sendMessage(parseInt(tabId), {
+      type: MessageType.DERIVE_TITLE,
+      title: getTabTitles(windowId).title(tabId),
+    });
   });
-}
+};
 
-browser.tabs.onRemoved.addListener((tabId) => {
-  const updated = tabTitles.remove(tabId);
-  notice(updated);
-});
+const remove = (windowId, tabId) => {
+  let tabTitles = getTabTitles(windowId);
+  let updated = tabTitles.remove(tabId);
+
+  if (0 === tabTitles.count()) {
+    console.log('delete window: ' + windowId);
+    delete windows[windowId];
+  } else {
+    notice(windowId, updated);
+  }
+};
+
+const update = (windowId, tabId, title) => {
+  let tabTitles = getTabTitles(windowId);
+  let updated = tabTitles.update(tabId, title);
+  notice(windowId, updated);
+};
 
 browser.runtime.onMessage.addListener((message, sender) => {
-  console.log("background: message received:");
-  console.log(message);
+  update(sender.tab.windowId, sender.tab.id, message.title);
+});
 
-  const tabId = sender.tab.id;
-  const title = message.title;
+browser.tabs.onRemoved.addListener((tabId, removeInfo) => {
+  remove(removeInfo.windowId, tabId);
+});
 
-  const updated = tabTitles.update(tabId, title);
-  notice(updated);
+browser.tabs.onAttached.addListener((tabId, attachInfo) => {
+  browser.tabs.sendMessage(tabId, {
+    type: MessageType.NEEDS_REQUEST,
+  });
+});
+
+browser.tabs.onDetached.addListener((tabId, detachInfo) => {
+  remove(detachInfo.oldWindowId, tabId);
 });
