@@ -1,4 +1,4 @@
-import MessageType from '../MessageType';
+import MessageType from '../model/MessageType';
 
 function send(title) {
   browser.runtime.sendMessage({

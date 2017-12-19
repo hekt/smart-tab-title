@@ -1,5 +1,5 @@
-import MessageType from '../MessageType';
-import TabTitles from './TabTitles';
+import MessageType from '../model/MessageType';
+import TabTitles from '../model/TabTitles';
 
 const delimiters = [' ', '】', '」'];
 

@@ -1,5 +1,5 @@
 import test from "ava";
-import TabTitles from "../src/background/TabTitles";
+import TabTitles from "../../src/model/TabTitles";
 
 test("split", t => {
   const target = new TabTitles(["\\[", "\\]", " "]);

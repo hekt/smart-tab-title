@@ -5,8 +5,8 @@ const dist = path.resolve(__dirname, 'extension/dist');
 
 module.exports = {
   entry: {
-    content: path.join(src, 'content'),
-    background: path.join(src, 'background'),
+    content: path.join(src, 'script/content.js'),
+    background: path.join(src, 'script/background.js'),
   },
 
   output: {
