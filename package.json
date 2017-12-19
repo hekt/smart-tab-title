@@ -13,7 +13,7 @@
     "start": "webpack --watch",
     "build": "webpack",
     "test": "ava --verbose",
-    "ext:lint": "web-ext lint --source-dir ./extension --firefox $npm_package_config_firefox_path",
+    "ext:lint": "web-ext lint --source-dir ./extension",
     "ext:start": "web-ext run --browser-console --source-dir ./extension --firefox $npm_package_config_firefox_path"
   },
   "devDependencies": {
